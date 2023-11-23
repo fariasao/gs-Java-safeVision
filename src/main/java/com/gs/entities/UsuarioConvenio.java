@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_sv_usuario_convenio")
+@IdClass(UsuarioConvenioId.class)
 public class UsuarioConvenio {
 
     @Id
