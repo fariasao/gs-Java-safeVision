@@ -32,15 +32,23 @@ public class HospitalController {
     }
 
     @PostMapping
-    public ResponseEntity<Hospital> createHospital(@RequestBody Hospital hospital) {
-        Hospital novoHospital = hospitalService.saveHospital(hospital);
-        return ResponseEntity.ok(novoHospital);
+    public ResponseEntity<?> createHospital(@RequestBody Hospital hospital) {
+        try {
+            Hospital novoHospital = hospitalService.saveHospital(hospital);
+            return ResponseEntity.ok(novoHospital);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar o hospital: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Hospital> updateHospital(@PathVariable Integer id, @RequestBody Hospital hospital) {
-        Hospital hospitalAtualizado = hospitalService.updateHospital(id, hospital);
-        return ResponseEntity.ok(hospitalAtualizado);
+    public ResponseEntity<?> updateHospital(@PathVariable Integer id, @RequestBody Hospital hospital) {
+        try {
+            Hospital hospitalAtualizado = hospitalService.updateHospital(id, hospital);
+            return ResponseEntity.ok(hospitalAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o hospital: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

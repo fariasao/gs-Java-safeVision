@@ -41,15 +41,23 @@ public class DependenteController {
     }
 
     @PostMapping
-    public ResponseEntity<Dependente> createDependente(@RequestBody Dependente dependente) {
-    	Dependente novoDependente = dependenteService.saveDependente(dependente);
-        return ResponseEntity.ok(novoDependente);
+    public ResponseEntity<?> createDependente(@RequestBody Dependente dependente) {
+        try {
+            Dependente novoDependente = dependenteService.saveDependente(dependente);
+            return ResponseEntity.ok(novoDependente);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar o dependente: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dependente> updateDependente(@PathVariable Integer id, @RequestBody Dependente dependente) {
-    	Dependente dependenteAtualizado = dependenteService.updateDependentes(id, dependente);
-        return ResponseEntity.ok(dependenteAtualizado);
+    public ResponseEntity<?> updateDependente(@PathVariable Integer id, @RequestBody Dependente dependente) {
+        try {
+            Dependente dependenteAtualizado = dependenteService.updateDependentes(id, dependente);
+            return ResponseEntity.ok(dependenteAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o dependente: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

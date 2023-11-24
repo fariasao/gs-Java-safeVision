@@ -1,5 +1,6 @@
 package com.gs.services;
 
+import com.gs.bo.ConvenioBO;
 import com.gs.entities.Convenio;
 import com.gs.repositories.ConvenioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import java.util.Optional;
 @Service
 public class ConvenioService {
 
-    private final ConvenioRepository convenioRepository;
+	private final ConvenioRepository convenioRepository;
+    private final ConvenioBO convenioBO;
 
     @Autowired
-    public ConvenioService(ConvenioRepository convenioRepository) {
+    public ConvenioService(ConvenioRepository convenioRepository, ConvenioBO convenioBO) {
         this.convenioRepository = convenioRepository;
+        this.convenioBO = convenioBO;
     }
 
     public List<Convenio> getAllConvenios() {
@@ -26,18 +29,12 @@ public class ConvenioService {
         return convenioRepository.findById(id);
     }
 
-    public Convenio saveConvenio(Convenio convenio) {
-        return convenioRepository.save(convenio);
+    public Convenio saveConvenio(Convenio convenio) throws Exception {
+        return convenioBO.cadastrarConvenio(convenio);
     }
 
-    public Convenio updateConvenio(Integer id, Convenio convenioDetails) {
-        Convenio convenio = convenioRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Convenio não encontrado"));
-
-        convenio.setNomeConvenio(convenioDetails.getNomeConvenio());
-        convenio.setTelefoneConvenio(convenioDetails.getTelefoneConvenio());
-
-        return convenioRepository.save(convenio);
+    public Convenio updateConvenio(Integer id, Convenio convenioDetails) throws Exception {
+        return convenioBO.atualizarConvenio(id, convenioDetails);
     }
 
     public void deleteConvenio(Integer id) {

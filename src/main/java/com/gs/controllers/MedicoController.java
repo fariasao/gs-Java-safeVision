@@ -32,15 +32,23 @@ public class MedicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Medico> createMedico(@RequestBody Medico medico) {
-        Medico novoMedico = medicoService.saveMedico(medico);
-        return ResponseEntity.ok(novoMedico);
+    public ResponseEntity<?> createMedico(@RequestBody Medico medico) {
+        try {
+            Medico novoMedico = medicoService.saveMedico(medico);
+            return ResponseEntity.ok(novoMedico);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar o médico: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Medico> updateMedico(@PathVariable Long id, @RequestBody Medico medico) {
-        Medico medicoAtualizado = medicoService.updateMedico(id, medico);
-        return ResponseEntity.ok(medicoAtualizado);
+    public ResponseEntity<?> updateMedico(@PathVariable Long id, @RequestBody Medico medico) {
+        try {
+            Medico medicoAtualizado = medicoService.updateMedico(id, medico);
+            return ResponseEntity.ok(medicoAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o médico: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

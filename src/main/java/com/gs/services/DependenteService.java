@@ -6,17 +6,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gs.bo.DependenteBO;
 import com.gs.entities.Dependente;
 import com.gs.repositories.DependenteRepository;
 
 @Service
 public class DependenteService {
 
-    private final DependenteRepository dependenteRepository;
+	private final DependenteRepository dependenteRepository;
+    private final DependenteBO dependenteBO;
 
     @Autowired
-    public DependenteService(DependenteRepository dependenteRepository) {
+    public DependenteService(DependenteRepository dependenteRepository, DependenteBO dependenteBO) {
         this.dependenteRepository = dependenteRepository;
+        this.dependenteBO = dependenteBO;
     }
 
     public List<Dependente> getAllDependentes() {
@@ -27,22 +30,13 @@ public class DependenteService {
         return dependenteRepository.findById(id);
     }
 
-    public Dependente saveDependente(Dependente dependente) {
-        return dependenteRepository.save(dependente);
+    public Dependente saveDependente(Dependente dependente) throws Exception {
+        return dependenteBO.cadastrarDependente(dependente);
     }
 
-    public Dependente updateDependentes(Integer id, Dependente dependentesDetails) {
-    	Dependente dependente = dependenteRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
-
-    	dependente.setNomeDependente(dependentesDetails.getNomeDependente());
-    	dependente.setRgDependente(dependentesDetails.getRgDependente());
-    	dependente.setDataNascimento(dependentesDetails.getDataNascimento());
-    	dependente.setSexoDependente(dependentesDetails.getSexoDependente());
-
-        return dependenteRepository.save(dependente);
+    public Dependente updateDependentes(Integer id, Dependente dependentesDetails) throws Exception {
+        return dependenteBO.atualizarDependente(id, dependentesDetails);
     }
-
     public void deleteDependente(Integer id) {
     	dependenteRepository.deleteById(id);
     }

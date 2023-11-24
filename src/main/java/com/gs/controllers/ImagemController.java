@@ -32,15 +32,23 @@ public class ImagemController {
     }
 
     @PostMapping
-    public ResponseEntity<Imagem> createImagem(@RequestBody Imagem imagem) {
-        Imagem novaImagem = imagemService.saveImagem(imagem);
-        return ResponseEntity.ok(novaImagem);
+    public ResponseEntity<?> createImagem(@RequestBody Imagem imagem) {
+        try {
+            Imagem novaImagem = imagemService.saveImagem(imagem);
+            return ResponseEntity.ok(novaImagem);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar a imagem: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Imagem> updateImagem(@PathVariable Integer id, @RequestBody Imagem imagem) {
-        Imagem imagemAtualizada = imagemService.updateImagem(id, imagem);
-        return ResponseEntity.ok(imagemAtualizada);
+    public ResponseEntity<?> updateImagem(@PathVariable Integer id, @RequestBody Imagem imagem) {
+        try {
+            Imagem imagemAtualizada = imagemService.updateImagem(id, imagem);
+            return ResponseEntity.ok(imagemAtualizada);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar a imagem: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

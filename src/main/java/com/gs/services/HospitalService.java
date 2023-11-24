@@ -1,5 +1,6 @@
 package com.gs.services;
 
+import com.gs.bo.HospitalBO;
 import com.gs.entities.Hospital;
 import com.gs.repositories.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import java.util.Optional;
 @Service
 public class HospitalService {
 
-    private final HospitalRepository hospitalRepository;
+	private final HospitalRepository hospitalRepository;
+    private final HospitalBO hospitalBO;
 
     @Autowired
-    public HospitalService(HospitalRepository hospitalRepository) {
+    public HospitalService(HospitalRepository hospitalRepository, HospitalBO hospitalBO) {
         this.hospitalRepository = hospitalRepository;
+        this.hospitalBO = hospitalBO;
     }
 
     public List<Hospital> getAllHospitais() {
@@ -26,21 +29,13 @@ public class HospitalService {
         return hospitalRepository.findById(id);
     }
 
-    public Hospital saveHospital(Hospital hospital) {
-        return hospitalRepository.save(hospital);
+    public Hospital saveHospital(Hospital hospital) throws Exception {
+        return hospitalBO.cadastrarHospital(hospital);
     }
 
-    public Hospital updateHospital(Integer id, Hospital hospitalDetails) {
-        Hospital hospital = hospitalRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Hospital não encontrado"));
-
-        hospital.setNomeHospital(hospitalDetails.getNomeHospital());
-        hospital.setTelefoneHospital(hospitalDetails.getTelefoneHospital());
-        hospital.setEnderecoHospital(hospitalDetails.getEnderecoHospital());
-
-        return hospitalRepository.save(hospital);
+    public Hospital updateHospital(Integer id, Hospital hospitalDetails) throws Exception {
+        return hospitalBO.atualizarHospital(id, hospitalDetails);
     }
-
     public void deleteHospital(Integer id) {
         hospitalRepository.deleteById(id);
     }

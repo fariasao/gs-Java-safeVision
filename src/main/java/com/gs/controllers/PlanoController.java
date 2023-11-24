@@ -32,15 +32,23 @@ public class PlanoController {
     }
 
     @PostMapping
-    public ResponseEntity<Plano> createPlano(@RequestBody Plano plano) {
-        Plano novoPlano = planoService.savePlano(plano);
-        return ResponseEntity.ok(novoPlano);
+    public ResponseEntity<?> createPlano(@RequestBody Plano plano) {
+        try {
+            Plano novoPlano = planoService.savePlano(plano);
+            return ResponseEntity.ok(novoPlano);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar o plano: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Plano> updatePlano(@PathVariable Integer id, @RequestBody Plano plano) {
-        Plano planoAtualizado = planoService.updatePlano(id, plano);
-        return ResponseEntity.ok(planoAtualizado);
+    public ResponseEntity<?> updatePlano(@PathVariable Integer id, @RequestBody Plano plano) {
+        try {
+            Plano planoAtualizado = planoService.updatePlano(id, plano);
+            return ResponseEntity.ok(planoAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o plano: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

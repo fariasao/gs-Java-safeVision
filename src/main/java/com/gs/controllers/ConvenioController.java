@@ -32,15 +32,23 @@ public class ConvenioController {
     }
 
     @PostMapping
-    public ResponseEntity<Convenio> createConvenio(@RequestBody Convenio convenio) {
-        Convenio novoConvenio = convenioService.saveConvenio(convenio);
-        return ResponseEntity.ok(novoConvenio);
+    public ResponseEntity<?> createConvenio(@RequestBody Convenio convenio) {
+        try {
+            Convenio novoConvenio = convenioService.saveConvenio(convenio);
+            return ResponseEntity.ok(novoConvenio);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar o convênio: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Convenio> updateConvenio(@PathVariable Integer id, @RequestBody Convenio convenio) {
-        Convenio convenioAtualizado = convenioService.updateConvenio(id, convenio);
-        return ResponseEntity.ok(convenioAtualizado);
+    public ResponseEntity<?> updateConvenio(@PathVariable Integer id, @RequestBody Convenio convenio) {
+        try {
+            Convenio convenioAtualizado = convenioService.updateConvenio(id, convenio);
+            return ResponseEntity.ok(convenioAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o convênio: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

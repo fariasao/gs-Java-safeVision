@@ -32,17 +32,24 @@ public class ResultadoController {
     }
 
     @PostMapping
-    public ResponseEntity<Resultado> createResultado(@RequestBody Resultado resultado) {
-        Resultado novoResultado = resultadoService.saveResultado(resultado);
-        return ResponseEntity.ok(novoResultado);
+    public ResponseEntity<?> createResultado(@RequestBody Resultado resultado) {
+        try {
+            Resultado novoResultado = resultadoService.saveResultado(resultado);
+            return ResponseEntity.ok(novoResultado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao criar o resultado: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resultado> updateResultado(@PathVariable Integer id, @RequestBody Resultado resultado) {
-        Resultado resultadoAtualizado = resultadoService.updateResultado(id, resultado);
-        return ResponseEntity.ok(resultadoAtualizado);
+    public ResponseEntity<?> updateResultado(@PathVariable Integer id, @RequestBody Resultado resultado) {
+        try {
+            Resultado resultadoAtualizado = resultadoService.updateResultado(id, resultado);
+            return ResponseEntity.ok(resultadoAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o resultado: " + e.getMessage());
+        }
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteResultado(@PathVariable Integer id) {
         resultadoService.deleteResultado(id);

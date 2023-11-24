@@ -1,5 +1,6 @@
 package com.gs.services;
 
+import com.gs.bo.ImagemBO;
 import com.gs.entities.Imagem;
 import com.gs.repositories.ImagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import java.util.Optional;
 @Service
 public class ImagemService {
 
-    private final ImagemRepository imagemRepository;
+	private final ImagemRepository imagemRepository;
+    private final ImagemBO imagemBO;
 
     @Autowired
-    public ImagemService(ImagemRepository imagemRepository) {
+    public ImagemService(ImagemRepository imagemRepository, ImagemBO imagemBO) {
         this.imagemRepository = imagemRepository;
+        this.imagemBO = imagemBO;
     }
 
     public List<Imagem> getAllImagens() {
@@ -26,20 +29,12 @@ public class ImagemService {
         return imagemRepository.findById(id);
     }
 
-    public Imagem saveImagem(Imagem imagem) {
-        return imagemRepository.save(imagem);
+    public Imagem saveImagem(Imagem imagem) throws Exception {
+        return imagemBO.cadastrarImagem(imagem);
     }
 
-    public Imagem updateImagem(Integer id, Imagem imagemDetails) {
-        Imagem imagem = imagemRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Imagem não encontrada"));
-
-        imagem.setPaciente(imagemDetails.getPaciente());
-        imagem.setDataArquivo(imagemDetails.getDataArquivo());
-        imagem.setCaminhoArquivos(imagemDetails.getCaminhoArquivos());
-        imagem.setObservacoes(imagemDetails.getObservacoes());
-
-        return imagemRepository.save(imagem);
+    public Imagem updateImagem(Integer id, Imagem imagemDetails) throws Exception {
+        return imagemBO.atualizarImagem(id, imagemDetails);
     }
 
     public void deleteImagem(Integer id) {

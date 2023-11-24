@@ -1,5 +1,6 @@
 package com.gs.services;
 
+import com.gs.bo.PlanoBO;
 import com.gs.entities.Plano;
 import com.gs.repositories.PlanoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import java.util.Optional;
 @Service
 public class PlanoService {
 
-    private final PlanoRepository planoRepository;
+	private final PlanoRepository planoRepository;
+    private final PlanoBO planoBO;
 
     @Autowired
-    public PlanoService(PlanoRepository planoRepository) {
+    public PlanoService(PlanoRepository planoRepository, PlanoBO planoBO) {
         this.planoRepository = planoRepository;
+        this.planoBO = planoBO;
     }
 
     public List<Plano> getAllPlanos() {
@@ -26,18 +29,12 @@ public class PlanoService {
         return planoRepository.findById(id);
     }
 
-    public Plano savePlano(Plano plano) {
-        return planoRepository.save(plano);
+    public Plano savePlano(Plano plano) throws Exception {
+        return planoBO.cadastrarPlano(plano);
     }
 
-    public Plano updatePlano(Integer id, Plano planoDetails) {
-        Plano plano = planoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Plano não encontrado"));
-
-        plano.setConvenio(planoDetails.getConvenio());
-        plano.setPlanoConvenio(planoDetails.getPlanoConvenio());
-
-        return planoRepository.save(plano);
+    public Plano updatePlano(Integer id, Plano planoDetails) throws Exception {
+        return planoBO.atualizarPlano(id, planoDetails);
     }
 
     public void deletePlano(Integer id) {
