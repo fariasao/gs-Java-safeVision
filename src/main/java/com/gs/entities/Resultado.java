@@ -15,21 +15,20 @@ public class Resultado {
     @JoinColumn(name = "idImagem")
     private Imagem imagem;
 
-    @ManyToOne
-    @JoinColumn(name = "idInformacoes")
-    private Informacao informacao;
-
     private Date dataAnalise;
     private String diagnostico;
     private Float probabilidade;
     private String comentarios;
     
+    public Resultado() {
+		
+	}
+    
     // Construtores, getters e setters
-	public Resultado(Integer idResultado, Imagem imagem, Informacao informacao, Date dataAnalise, String diagnostico,
+	public Resultado(Integer idResultado, Imagem imagem, Date dataAnalise, String diagnostico,
 			Float probabilidade, String comentarios) {
 		this.idResultado = idResultado;
 		this.imagem = imagem;
-		this.informacao = informacao;
 		this.dataAnalise = dataAnalise;
 		this.diagnostico = diagnostico;
 		this.probabilidade = probabilidade;
@@ -50,14 +49,6 @@ public class Resultado {
 
 	public void setImagem(Imagem imagem) {
 		this.imagem = imagem;
-	}
-
-	public Informacao getInformacao() {
-		return informacao;
-	}
-
-	public void setInformacao(Informacao informacao) {
-		this.informacao = informacao;
 	}
 
 	public Date getDataAnalise() {

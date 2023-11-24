@@ -16,6 +16,10 @@ public class Hospital {
     private String nomeHospital;
     private Long telefoneHospital;
     private String enderecoHospital;
+    
+    public Hospital() {
+		
+	}
     // Construtores, getters e setters
 	public Hospital(Integer idHospital, String nomeHospital, Long telefoneHospital, String enderecoHospital) {
 		this.idHospital = idHospital;

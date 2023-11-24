@@ -2,11 +2,7 @@ package com.gs.entities;
 
 import java.sql.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_sv_paciente")
@@ -15,49 +11,90 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPaciente;
+
+    @ManyToOne
+    @JoinColumn(name = "idDependente")
+    private Dependente dependente;
+
     private String nomePaciente;
-    private Long rgPaciente;
+    private String emailPaciente;
+    private String senhaPaciente;
+    private Long telefonePaciente;
     private Date dataNascimento;
-    private String sexoPaciente;
-    // Construtores, getters e setters
-	public Paciente(Integer idPaciente, String nomePaciente, Long rgPaciente, Date dataNascimento,
-			String sexoPaciente) {
-		this.idPaciente = idPaciente;
-		this.nomePaciente = nomePaciente;
-		this.rgPaciente = rgPaciente;
-		this.dataNascimento = dataNascimento;
-		this.sexoPaciente = sexoPaciente;
+    
+    public Paciente() {
+		
 	}
+    
+    // Construtores, getters e setters
+	public Paciente(Integer idPaciente, Dependente dependente, String nomePaciente, String emailPaciente, String senhaPaciente,
+			Long telefonePaciente, Date dataNascimento) {
+		this.idPaciente = idPaciente;
+		this.dependente = dependente;
+		this.nomePaciente = nomePaciente;
+		this.emailPaciente = emailPaciente;
+		this.senhaPaciente = senhaPaciente;
+		this.telefonePaciente = telefonePaciente;
+		this.dataNascimento = dataNascimento;
+	}
+
 	public Integer getIdPaciente() {
 		return idPaciente;
 	}
+
 	public void setIdPaciente(Integer idPaciente) {
 		this.idPaciente = idPaciente;
 	}
+
+	public Dependente getDependente() {
+		return dependente;
+	}
+
+	public void setDependente(Dependente dependente) {
+		this.dependente = dependente;
+	}
+
 	public String getNomePaciente() {
 		return nomePaciente;
 	}
+
 	public void setNomePaciente(String nomePaciente) {
 		this.nomePaciente = nomePaciente;
 	}
-	public Long getRgPaciente() {
-		return rgPaciente;
+
+	public String getEmailPaciente() {
+		return emailPaciente;
 	}
-	public void setRgPaciente(Long rgPaciente) {
-		this.rgPaciente = rgPaciente;
+
+	public void setEmailPaciente(String emailPaciente) {
+		this.emailPaciente = emailPaciente;
 	}
+
+	public String getSenhaPaciente() {
+		return senhaPaciente;
+	}
+
+	public void setSenhaPaciente(String senhaPaciente) {
+		this.senhaPaciente = senhaPaciente;
+	}
+
+	public Long getTelefonePaciente() {
+		return telefonePaciente;
+	}
+
+	public void setTelefonePaciente(Long telefonePaciente) {
+		this.telefonePaciente = telefonePaciente;
+	}
+
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
+
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public String getSexoPaciente() {
-		return sexoPaciente;
-	}
-	public void setSexoPaciente(String sexoPaciente) {
-		this.sexoPaciente = sexoPaciente;
-	}
-    
+
 	
+
+    
 }

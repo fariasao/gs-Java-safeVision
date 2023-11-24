@@ -15,6 +15,10 @@ public class Convenio {
     private Integer idConvenio;
     private String nomeConvenio;
     private Long telefoneConvenio;
+    
+    public Convenio() {
+		
+	}
     // Construtores, getters e setters
 	public Convenio(Integer idConvenio, String nomeConvenio, Long telefoneConvenio) {
 		this.idConvenio = idConvenio;

@@ -25,27 +25,27 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> getPacienteById(@PathVariable Integer id) {
-        Paciente paciente = pacienteService.findPacienteById(id)
-            .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
+    public ResponseEntity<Paciente> getUsuarioById(@PathVariable Integer id) {
+    	Paciente paciente = pacienteService.findPacienteById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         return ResponseEntity.ok(paciente);
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> createPaciente(@RequestBody Paciente paciente) {
-        Paciente novoPaciente = pacienteService.savePaciente(paciente);
+    public ResponseEntity<Paciente> createUsuario(@RequestBody Paciente paciente) {
+    	Paciente novoPaciente = pacienteService.savePaciente(paciente);
         return ResponseEntity.ok(novoPaciente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> updatePaciente(@PathVariable Integer id, @RequestBody Paciente paciente) {
-        Paciente pacienteAtualizado = pacienteService.updatePaciente(id, paciente);
+    public ResponseEntity<Paciente> updateUsuario(@PathVariable Integer id, @RequestBody Paciente paciente) {
+    	Paciente pacienteAtualizado = pacienteService.updatePaciente(id, paciente);
         return ResponseEntity.ok(pacienteAtualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePaciente(@PathVariable Integer id) {
-        pacienteService.deletePaciente(id);
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Integer id) {
+    	pacienteService.deletePaciente(id);
         return ResponseEntity.noContent().build();
     }
 }

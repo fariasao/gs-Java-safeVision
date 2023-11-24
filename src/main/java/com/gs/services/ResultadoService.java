@@ -35,7 +35,6 @@ public class ResultadoService {
             .orElseThrow(() -> new RuntimeException("Resultado não encontrado"));
 
         resultado.setImagem(resultadoDetails.getImagem());
-        resultado.setInformacao(resultadoDetails.getInformacao());
         resultado.setDataAnalise(resultadoDetails.getDataAnalise());
         resultado.setDiagnostico(resultadoDetails.getDiagnostico());
         resultado.setProbabilidade(resultadoDetails.getProbabilidade());

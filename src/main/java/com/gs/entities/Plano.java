@@ -15,6 +15,10 @@ public class Plano {
     private Convenio convenio;
 
     private String planoConvenio;
+    
+    public Plano() {
+		
+	}
 
     // Construtores, getters e setters
 	public Plano(Integer idPlano, Convenio convenio, String planoConvenio) {

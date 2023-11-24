@@ -3,50 +3,54 @@ package com.gs.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_sv_info_medico_hospital")
+@Table(name = "tb_sv_medico_hospital")
 public class InfoMedicoHospital {
 
-    @Id
-    private Integer idInformacoes;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idMedicoHospital;
 
     @ManyToOne
-    @JoinColumn(name = "idMedico")
+    @JoinColumn(name = "id_medico") // Refere-se à coluna de chave estrangeira na tabela 'tb_sv_medico_hospital'
     private Medico medico;
 
     @ManyToOne
-    @JoinColumn(name = "idHospital")
+    @JoinColumn(name = "id_hospital") // Refere-se à coluna de chave estrangeira na tabela 'tb_sv_medico_hospital'
     private Hospital hospital;
-    // Construtores, getters e setters
+    
+    public InfoMedicoHospital() {
+        // Construtor padrão
+    }
 
-	public InfoMedicoHospital(Integer idInformacoes, Medico medico, Hospital hospital) {
-		this.idInformacoes = idInformacoes;
-		this.medico = medico;
-		this.hospital = hospital;
-	}
+    // Construtor com parâmetros
+    public InfoMedicoHospital(Integer idMedicoHospital, Medico medico, Hospital hospital) {
+        this.idMedicoHospital = idMedicoHospital;
+        this.medico = medico;
+        this.hospital = hospital;
+    }
 
-	public Integer getIdInformacoes() {
-		return idInformacoes;
-	}
+    // Getters e setters
+    public Integer getIdMedicoHospital() {
+        return idMedicoHospital;
+    }
 
-	public void setIdInformacoes(Integer idInformacoes) {
-		this.idInformacoes = idInformacoes;
-	}
+    public void setIdMedicoHospital(Integer idMedicoHospital) {
+        this.idMedicoHospital = idMedicoHospital;
+    }
 
-	public Medico getMedico() {
-		return medico;
-	}
+    public Medico getMedico() {
+        return medico;
+    }
 
-	public void setMedico(Medico medico) {
-		this.medico = medico;
-	}
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
 
-	public Hospital getHospital() {
-		return hospital;
-	}
+    public Hospital getHospital() {
+        return hospital;
+    }
 
-	public void setHospital(Hospital hospital) {
-		this.hospital = hospital;
-	}
-
-	
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
 }

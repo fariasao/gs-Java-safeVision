@@ -34,7 +34,7 @@ public class ImagemService {
         Imagem imagem = imagemRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Imagem não encontrada"));
 
-        imagem.setUsuario(imagemDetails.getUsuario());
+        imagem.setPaciente(imagemDetails.getPaciente());
         imagem.setDataArquivo(imagemDetails.getDataArquivo());
         imagem.setCaminhoArquivos(imagemDetails.getCaminhoArquivos());
         imagem.setObservacoes(imagemDetails.getObservacoes());

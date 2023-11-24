@@ -12,17 +12,21 @@ public class Imagem {
     private Integer idImagem;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    private Usuario usuario;
+    @JoinColumn(name = "idPaciente")
+    private Paciente paciente;
 
     private Date dataArquivo;
     private String caminhoArquivos;
     private String observacoes;
     
+    public Imagem() {
+		
+	}
+    
     // Construtores, getters e setters
-	public Imagem(Integer idImagem, Usuario usuario, Date dataArquivo, String caminhoArquivos, String observacoes) {
+	public Imagem(Integer idImagem, Paciente paciente, Date dataArquivo, String caminhoArquivos, String observacoes) {
 		this.idImagem = idImagem;
-		this.usuario = usuario;
+		this.paciente = paciente;
 		this.dataArquivo = dataArquivo;
 		this.caminhoArquivos = caminhoArquivos;
 		this.observacoes = observacoes;
@@ -36,12 +40,12 @@ public class Imagem {
 		this.idImagem = idImagem;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Paciente getPaciente() {
+		return paciente;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 	public Date getDataArquivo() {
@@ -67,6 +71,7 @@ public class Imagem {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
+
 
     
 }

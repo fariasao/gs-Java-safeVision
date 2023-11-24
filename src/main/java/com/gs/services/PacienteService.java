@@ -26,23 +26,26 @@ public class PacienteService {
         return pacienteRepository.findById(id);
     }
 
-    public Paciente savePaciente(Paciente paciente) {
-        return pacienteRepository.save(paciente);
+    public Paciente savePaciente(Paciente usuario) {
+        // Aqui podem ser adicionadas validações ou lógica de negócios
+        return pacienteRepository.save(usuario);
     }
 
     public Paciente updatePaciente(Integer id, Paciente pacienteDetails) {
-        Paciente paciente = pacienteRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
+    	Paciente paciente = pacienteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        paciente.setNomePaciente(pacienteDetails.getNomePaciente());
-        paciente.setRgPaciente(pacienteDetails.getRgPaciente());
+    	paciente.setNomePaciente(pacienteDetails.getNomePaciente());
+    	paciente.setEmailPaciente(pacienteDetails.getEmailPaciente());
+    	paciente.setSenhaPaciente(pacienteDetails.getSenhaPaciente());
+    	paciente.setTelefonePaciente(pacienteDetails.getTelefonePaciente());
         paciente.setDataNascimento(pacienteDetails.getDataNascimento());
-        paciente.setSexoPaciente(pacienteDetails.getSexoPaciente());
+        paciente.setDependente(pacienteDetails.getDependente());
 
         return pacienteRepository.save(paciente);
     }
 
     public void deletePaciente(Integer id) {
-        pacienteRepository.deleteById(id);
+    	pacienteRepository.deleteById(id);
     }
 }
