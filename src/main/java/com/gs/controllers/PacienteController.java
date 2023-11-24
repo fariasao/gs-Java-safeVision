@@ -32,15 +32,25 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> createUsuario(@RequestBody Paciente paciente) {
-    	Paciente novoPaciente = pacienteService.savePaciente(paciente);
-        return ResponseEntity.ok(novoPaciente);
+    public ResponseEntity<?> createUsuario(@RequestBody Paciente paciente) {
+        try {
+            Paciente novoPaciente = pacienteService.savePaciente(paciente);
+            return ResponseEntity.ok(novoPaciente);
+        } catch (Exception e) {
+            // Aqui você pode logar a exceção e/ou formatar uma mensagem de erro
+            return ResponseEntity.badRequest().body("Erro ao criar o paciente: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> updateUsuario(@PathVariable Integer id, @RequestBody Paciente paciente) {
-    	Paciente pacienteAtualizado = pacienteService.updatePaciente(id, paciente);
-        return ResponseEntity.ok(pacienteAtualizado);
+    public ResponseEntity<?> updateUsuario(@PathVariable Integer id, @RequestBody Paciente paciente) {
+        try {
+            Paciente pacienteAtualizado = pacienteService.updatePaciente(id, paciente);
+            return ResponseEntity.ok(pacienteAtualizado);
+        } catch (Exception e) {
+            // Aqui você também pode logar a exceção e/ou formatar uma mensagem de erro
+            return ResponseEntity.badRequest().body("Erro ao atualizar o paciente: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

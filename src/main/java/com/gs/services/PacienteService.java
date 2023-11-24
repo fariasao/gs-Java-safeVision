@@ -2,6 +2,7 @@ package com.gs.services;
 
 import com.gs.entities.Paciente;
 import com.gs.repositories.PacienteRepository;
+import com.gs.bo.PacienteBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,12 @@ import java.util.Optional;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final PacienteBO pacienteBO;
 
     @Autowired
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, PacienteBO pacienteBO) {
         this.pacienteRepository = pacienteRepository;
+        this.pacienteBO = pacienteBO;
     }
 
     public List<Paciente> getAllPacientes() {
@@ -26,26 +29,17 @@ public class PacienteService {
         return pacienteRepository.findById(id);
     }
 
-    public Paciente savePaciente(Paciente usuario) {
-        // Aqui podem ser adicionadas validações ou lógica de negócios
-        return pacienteRepository.save(usuario);
+    public Paciente savePaciente(Paciente paciente) throws Exception {
+        // Utilizar PacienteBO para lógica de negócios e validações
+        return pacienteBO.savePaciente(paciente);
     }
 
-    public Paciente updatePaciente(Integer id, Paciente pacienteDetails) {
-    	Paciente paciente = pacienteRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-    	paciente.setNomePaciente(pacienteDetails.getNomePaciente());
-    	paciente.setEmailPaciente(pacienteDetails.getEmailPaciente());
-    	paciente.setSenhaPaciente(pacienteDetails.getSenhaPaciente());
-    	paciente.setTelefonePaciente(pacienteDetails.getTelefonePaciente());
-        paciente.setDataNascimento(pacienteDetails.getDataNascimento());
-        paciente.setDependente(pacienteDetails.getDependente());
-
-        return pacienteRepository.save(paciente);
+    public Paciente updatePaciente(Integer id, Paciente pacienteDetails) throws Exception {
+        // Utilizar PacienteBO para lógica de negócios e atualização
+        return pacienteBO.updatePaciente(id, pacienteDetails);
     }
 
     public void deletePaciente(Integer id) {
-    	pacienteRepository.deleteById(id);
+        pacienteRepository.deleteById(id);
     }
 }
